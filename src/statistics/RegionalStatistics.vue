@@ -84,7 +84,7 @@
             <tbody>
                 <tr class="tBody2">
                     <!-- <td><pie-chart :data="chartData" :options="chartOptions"></pie-chart></td> -->
-                    a
+                    
                 </tr>
             </tbody>
         </table>
@@ -109,7 +109,9 @@ export default {
             firstDate:'',
             firstTime:'',
             lastDate:'',
-            lastTime:'',  
+            lastTime:'', 
+            
+            //테이블 출력 데이터 모아논 배열
             searchData:[]      
         }
     },
@@ -252,14 +254,14 @@ tr{
     border-left: 1px solid;
 }
 .firstTable{
-    width:60%;
+    width:55%;
     float:left;
     border-left: 0px;
     border-right: 0px;
     border-bottom: 0px;
 }
 .secondTable{
-    width:40%;
+    width:45%;
     float:right;
     border-left: 1px;
     border-bottom: 1px solid;
