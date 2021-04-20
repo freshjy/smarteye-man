@@ -139,6 +139,7 @@ export default {
             .then((res) => {
                 //console.log('getCotrollers:', res.data)
                 this.getControllers = res.data
+                
             })
         },
         isExistCCTV(cctvId){

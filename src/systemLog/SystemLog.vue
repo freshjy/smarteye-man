@@ -20,7 +20,7 @@
         <!-- {{loginCheck}}  {{logoutCheck}}  {{resetSet}} -->
         <br/>
         <div class="searchBtn">
-            <button v-on:click="seletLog(firstDate,firstTime,lastDate,lastTime,loginCheck,logoutCheck,resetSet)">
+            <button v-on:click="searchLog(firstDate,firstTime,lastDate,lastTime,loginCheck,logoutCheck,resetSet)">
                 조회
             </button>
             <button>
@@ -88,7 +88,7 @@ export default {
                 this.getAuthData = res.data
             })
         },
-        seletLog(firstDate,firstTime,lastDate,lastTime,loginCheck,logoutCheck,resetSet){
+        searchLog(firstDate,firstTime,lastDate,lastTime,loginCheck,logoutCheck,resetSet){
             this.searchData.splice(0)
             const moment = require('moment');
             var fDateTime = firstDate+" "+firstTime
@@ -98,7 +98,7 @@ export default {
             }else{
                 for(var i=0; i<this.getAuthData.length; i++){
                     if(moment(this.getAuthData[i].created_at).isBetween(fDateTime, lDateTime, undefined, '()') && loginCheck && logoutCheck){
-                        console.log(this.getAuthData[i].action=="Logout")
+                        // console.log(this.getAuthData[i].action=="Logout")
                         this.searchData.push({
                             created_at:this.getAuthData[i].created_at,
                             user_name:this.getAuthData[i].user_name,
