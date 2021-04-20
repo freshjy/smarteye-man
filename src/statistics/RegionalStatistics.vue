@@ -124,8 +124,8 @@ export default {
             })
         },
         isExistObject(selectObject){
-            var returnFlag = false;
-            for(var i in this.objectArr){
+            let returnFlag = false;
+            for(let i in this.objectArr){
                 if(this.objectArr[i] == selectObject){
                     returnFlag = true;
                 }
@@ -134,8 +134,8 @@ export default {
             return returnFlag;
         },
         isExistArea(selectArea){
-            var returnFlag = false;
-            for(var i in this.areaArr){
+            let returnFlag = false;
+            for(let i in this.areaArr){
                 if(this.areaArr[i] == selectArea){
                     returnFlag = true;
                 }
@@ -164,13 +164,12 @@ export default {
         },
         searchObjectArea(firstDate,firstTime,lastDate,lastTime){
             this.searchData.splice(0)
-            var fDateTime = firstDate+" "+firstTime
-            var lDateTime = lastDate+" "+lastTime
+            let fDateTime = firstDate+" "+firstTime
+            let lDateTime = lastDate+" "+lastTime
 
             if(!firstDate&&!firstTime&&!lastDate&&!lastTime){
                 alert("기간을 입력하세요")
             }else{
-                var num=0
                 for(let i=0; i<this.areaArr.length; i++){
                     this.searchData.push({
                         car : 0,
@@ -184,10 +183,10 @@ export default {
                     })
                 }
                 for(let i=0; i<this.searchData.length; i++){
-                    for(var j=0; j<this.getObjectAreaData.length; j++){
+                    for(let j=0; j<this.getObjectAreaData.length; j++){
                         if(this.isbetweenDate(fDateTime,lDateTime,this.getObjectAreaData[j].created_at) 
                         && this.areaArr[i]==this.getObjectAreaData[j].area1+" "+this.getObjectAreaData[j].area2){
-                            for(var k=0; k<this.objectArr.length; k++){
+                            for(let k=0; k<this.objectArr.length; k++){
                                 if((this.objectArr[k]=="차") && (this.getObjectAreaData[j].car == "o")){
                                     this.searchData[i].car++;
                                     this.searchData[i].sum++;
@@ -205,16 +204,15 @@ export default {
                                     this.searchData[i].sum++;
                                 }
                             }
-                            
-                            this.searchData[i].carPercent = this.searchData[i].car/this.searchData[i].sum*100
-                            this.searchData[i].personPercent = this.searchData[i].person/this.searchData[i].sum*100
+                            this.searchData[i].carPercent = (this.searchData[i].car/this.searchData[i].sum*100).toFixed(2)
+                            this.searchData[i].personPercent = (this.searchData[i].person/this.searchData[i].sum*100).toFixed(2)
                         }
                     }
                 }   
             }
         },
         isbetweenDate(fDateTime,lDateTime,searchDate){
-            var returnFlag=false
+            let returnFlag=false
             const moment = require('moment');
             if(moment(searchDate).isBetween(fDateTime, lDateTime, undefined, '()')){
                 returnFlag = true

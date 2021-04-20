@@ -4,7 +4,7 @@ import Router from 'vue-router'
 import UserInfo from '../userManagement/UserInfo'
 // 통계 -> 처리현황, , , 리포트설정
 import ProceStatus from '../statistics/ProceStatus'
-
+import HourlyStatistics from '../statistics/HourlyStatistics'
 import RegionalStatistics from '../statistics/RegionalStatistics'
 import ReportSetting from '../statistics/ReportSetting'
 // 로그
@@ -42,10 +42,16 @@ export default new Router({
       path: '/reportsetting',
       name: ReportSetting,
       component: ReportSetting
-    },{
+    },
+    {
       path: '/systemlog',
       name: SystemLog,
       component: SystemLog
+    },
+    {
+      path: '/hourlystatistics',
+      name: HourlyStatistics,
+      component: HourlyStatistics
     }
     
   ]

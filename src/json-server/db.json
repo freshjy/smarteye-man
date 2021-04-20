@@ -8307,7 +8307,7 @@
       {
         "created_at" : "2020-12-12 17:41",
         "car" : "o",
-        "person" : "o",
+        "person" : "x",
         "flame" : "",
         "smoke" : "",
         "area1" : "경상북도",
@@ -8316,7 +8316,7 @@
       {
         "created_at" : "2020-12-13 17:41",
         "car" : "o",
-        "person" : "o",
+        "person" : "x",
         "flame" : "",
         "smoke" : "",
         "area1" : "경상북도",
@@ -8325,7 +8325,7 @@
       {
         "created_at" : "2020-12-13 17:41",
         "car" : "o",
-        "person" : "o",
+        "person" : "x",
         "flame" : "",
         "smoke" : "",
         "area1" : "경상북도",
