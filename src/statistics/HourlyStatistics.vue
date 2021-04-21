@@ -1,7 +1,7 @@
 <template lang="">
     <div>
         <div class="pageTitle"> 
-        시스템 로그
+        객체종류 시간별 통계
         </div>
         <br/>
         <div>
@@ -90,6 +90,8 @@ export default {
     },
     data(){
         return{
+            getObjectTimeData:[],
+
             firstDate:'',
             firstTime:'',
             lastDate:'',
@@ -108,6 +110,13 @@ export default {
         }
     },
     methods:{
+        getObjectTimeToJson(){
+            this.$http.get('http://localhost:3000/result_of_object')
+            .then((res) => {
+                console.log('getdata: ', res.data)
+                this.getObjectTimeData = res.data
+            })
+        },
         addObject(selectObject){
             if(!this.isExistObject(selectObject)){
                 this.objectArr.push(selectObject)
@@ -144,7 +153,7 @@ export default {
         }
     },
     mounted() {
-        
+        this.getObjectTimeToJson()
     }
 }
 </script>

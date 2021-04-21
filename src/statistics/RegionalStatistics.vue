@@ -187,19 +187,19 @@ export default {
                         if(this.isbetweenDate(fDateTime,lDateTime,this.getObjectAreaData[j].created_at) 
                         && this.areaArr[i]==this.getObjectAreaData[j].area1+" "+this.getObjectAreaData[j].area2){
                             for(let k=0; k<this.objectArr.length; k++){
-                                if((this.objectArr[k]=="차") && (this.getObjectAreaData[j].car == "o")){
+                                if((this.objectArr.length>0) && (this.objectArr[k]=="차") && (this.getObjectAreaData[j].car == "o")){
                                     this.searchData[i].car++;
                                     this.searchData[i].sum++;
                                 }
-                                if((this.objectArr[k]=="사람") && this.getObjectAreaData[j].person == "o"){
+                                if((this.objectArr.length>0) && (this.objectArr[k]=="사람") && this.getObjectAreaData[j].person == "o"){
                                     this.searchData[i].person++;
                                     this.searchData[i].sum++;
                                 }
-                                if((this.objectArr[k]=="화제") && this.getObjectAreaData[j].flame == "o"){
+                                if((this.objectArr.length>0) && (this.objectArr[k]=="화제") && this.getObjectAreaData[j].flame == "o"){
                                     this.searchData[i].flame++;
                                     this.searchData[i].sum++;
                                 }
-                                if((this.objectArr[k]=="연기") && this.getObjectAreaData[j].smoke == "o"){
+                                if((this.objectArr.length>0) && (this.objectArr[k]=="연기") && this.getObjectAreaData[j].smoke == "o"){
                                     this.searchData[i].smoke++;
                                     this.searchData[i].sum++;
                                 }
