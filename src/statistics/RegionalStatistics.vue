@@ -55,7 +55,7 @@
             <i class="closeBtn fas fa-times"></i>
         </span>
     </span>
-    
+    <br/>
     <div>
         <table class="firstTable">
             <thead>

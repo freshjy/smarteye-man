@@ -1,48 +1,38 @@
 <template lang="">
+<div>
+    <div class="pageTitle"> 
+    객체종류 시간별 통계
+    </div>
+    <br/>
     <div>
-        <div class="pageTitle"> 
-        객체종류 시간별 통계
-        </div>
-        <br/>
-        <div>
-        검색기간
-            <input type="date" v-model="firstDate"/><input type="time" v-model="firstTime"/> ~ 
-            <input type="date" v-model="lastDate"/><input type="time" v-model="lastTime"/>
+    검색기간
+        <input type="date" v-model="firstDate"/><input type="time" v-model="firstTime"/> ~ 
+        <input type="date" v-model="lastDate"/><input type="time" v-model="lastTime"/>
             
-            {{firstDate + " " + firstTime}}
-            {{lastDate + " " + lastTime}}
-        </div>
-        <br/>
-        <div>
-            검색주기 
-            <select name="selectingCycle" v-model="selectCycle">
-                <option value="hourly">시간별</option>
-                <option value="daily">일별</option>
-                <option value="monthly">월별</option>
-            </select>
-            {{selectCycle}}
-        </div>
+        {{firstDate + " " + firstTime}}
+        {{lastDate + " " + lastTime}}
+    </div>
+    <br/>
+    <div>
+        검색주기 
+        <select name="selectingCycle" v-model="selectCycle">
+            <option value="hourly">시간별</option>
+            <option value="daily">일별</option>
+            <option value="monthly">월별</option>
+        </select>
+        {{selectCycle}}
+    </div>
         
-        <br/>
-        <div>
-            객체종류 
-            <select name="selectingObject" v-model="selectObject" >
-                <option v-for="(object, index) in objectCategory" :key="index">
-                    {{object}}
-                </option>
-            </select>
-            <button v-on:click="addObject(selectObject)">추가</button>
-            {{objectArr}}
-        </div>
-        <span v-for="(object,index) in objectArr" :key="index+1">
-            {{object}}
-            <span class="objectRemove" type="button" v-on:click="removeObject(index+1)">
-                <i class="closeBtn fas fa-times"></i>
-            </span>
-        </span>  
-
-
-        <br/>
+    <br/>
+    <div>
+        객체종류 
+        <select name="selectingObject" v-model="selectObject" >
+            <option v-for="(object, index) in objectCategory" :key="index">
+                {{object}}
+            </option>
+        </select>
+        <button v-on:click="addObject(selectObject)">추가</button>
+        {{objectArr}}
         <div class="searchBtn">
             <button v-on:click="searchObjectHourly(firstDate,firstTime,lastDate,lastTime,selectCycle)">
                 조회
@@ -51,23 +41,32 @@
                 내보내기
             </button>
         </div>
-        <div>
-            <table>
-                <colgroup>
-                    <col width="25%">
-                    <col width="25%">
-                    <col width="25%">
-                    <col width="25%">
-                </colgroup>
-                <thead>
-                    <tr class="tTitle">
-                        <th>기간</th>
-                        <th>차</th>
-                        <th>사람</th>
-                        <th>합계</th>
-                    </tr>
-                </thead>
-                <tbody>
+    </div>
+    <span v-for="(object,index) in objectArr" :key="index+1">
+        {{object}}
+        <span class="objectRemove" type="button" v-on:click="removeObject(index+1)">
+            <i class="closeBtn fas fa-times"></i>
+        </span>
+    </span>  
+    <br/>
+        
+    <div>
+        <table>
+            <colgroup>
+                <col width="25%">
+                <col width="25%">
+                <col width="25%">
+                <col width="25%">
+            </colgroup>
+            <thead>
+                <tr class="tTitle">
+                    <th>기간</th>
+                    <th>차</th>
+                    <th>사람</th>
+                    <th>합계</th>
+                </tr>
+            </thead>
+            <tbody>
                 <tr class="tBody" >
                     <td>1</td>
                     <td>1</td>
@@ -75,11 +74,9 @@
                     <td>1</td>
                 </tr>
             </tbody>
-            </table>
-        </div>
-
-        
-    </div>
+        </table>
+    </div>  
+</div>
 </template>
 
 <script>
@@ -140,14 +137,9 @@ export default {
             this.searchData.splice(0)
             let fDateTime = firstDate+" "+firstTime
             let lDateTime = lastDate+" "+lastTime
-            let monthArr=[]
-            var date=fDateTime.split(" ")[0];
-            console.log("date "+date)
 
-            console.log(fDateTime, lDateTime)
-            console.log(this.isbetweenDate(fDateTime,lDateTime,"2021-04-21"))
-
-
+            // var date=fDateTime.split(" ")[0];
+            // console.log("date "+date)
 
             // if(selectCycle=="monthly"){
             //     fDateTime = fDateTime.substr(0,7)
@@ -204,6 +196,8 @@ table {
     border-bottom: 1px solid ;
 }
 .tBody{
-    border:0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom: 0px;
 }
 </style>

@@ -16,9 +16,6 @@
         <div>
             검색 조건 <input type="checkbox" v-model="loginCheck"> 로그인 <input type="checkbox" v-model="logoutCheck"> 로그아웃 <input type="checkbox" v-model="resetSet"> 설정 초기화
         </div>
-        <br/>
-        <!-- {{loginCheck}}  {{logoutCheck}}  {{resetSet}} -->
-        <br/>
         <div class="searchBtn">
             <button v-on:click="searchLog(firstDate,firstTime,lastDate,lastTime,loginCheck,logoutCheck,resetSet)">
                 조회
@@ -27,6 +24,9 @@
                 내보내기
             </button>
         </div>
+        <br/>
+        <br/>
+        
         <div>
             <table>
                 <colgroup>
@@ -152,7 +152,9 @@ table {
     border-bottom: 1px solid ;
 }
 .tBody{
-    border:0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom: 0px;
 }
 
 </style>

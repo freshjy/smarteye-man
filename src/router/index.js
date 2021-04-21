@@ -6,10 +6,11 @@ import UserInfo from '../userManagement/UserInfo'
 import ProceStatus from '../statistics/ProceStatus'
 import HourlyStatistics from '../statistics/HourlyStatistics'
 import RegionalStatistics from '../statistics/RegionalStatistics'
+
 import ReportSetting from '../statistics/ReportSetting'
 // 로그
-import EventLog from '../systemLog/EventLog'
-import SystemLog from '../systemLog/SystemLog'
+import EventLog from '../log/EventLog'
+import SystemLog from '../log/SystemLog'
 
 
 
@@ -22,17 +23,23 @@ export default new Router({
     //   name : Chart,
     //   component : Chart
     // },
+    // 사용자관리
     {
       path: '/userinfo',
       name: UserInfo,
       component: UserInfo
     },
+    // 통계
     {
       path: '/procestatus',
       name: ProceStatus,
       component: ProceStatus
     },
-
+    {
+      path: '/hourlystatistics',
+      name: HourlyStatistics,
+      component: HourlyStatistics
+    },
     {
       path: '/regionalstatistics',
       name: RegionalStatistics,
@@ -44,15 +51,14 @@ export default new Router({
       component: ReportSetting
     },
     {
+      path:'/eventlog',
+      name: EventLog,
+      component: EventLog
+    },
+    {
       path: '/systemlog',
       name: SystemLog,
       component: SystemLog
-    },
-    {
-      path: '/hourlystatistics',
-      name: HourlyStatistics,
-      component: HourlyStatistics
-    }
-    
+    },      
   ]
 })
