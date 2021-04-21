@@ -112,7 +112,10 @@ export default {
             lastTime:'', 
             
             //테이블 출력 데이터 모아논 배열
-            searchData:[]      
+            searchData:[],
+
+            //차트에 보여줄 데이터 0번이 차 1번이 사람
+            chartArr:[]
         }
     },
     methods:{
@@ -208,8 +211,16 @@ export default {
                             this.searchData[i].personPercent = (this.searchData[i].person/this.searchData[i].sum*100).toFixed(2)
                         }
                     }
-                }   
+                } 
             }
+            // 차트를 위한 데이터 입력
+            for( let i=0; i<this.searchData.length; i++){
+                this.chartArr.push({
+                    car: this.searchData[i].car,
+                    person: this.searchData[i].person
+                })
+            }
+            console.log(this.chartArr) 
         },
         isbetweenDate(fDateTime,lDateTime,searchDate){
             let returnFlag=false

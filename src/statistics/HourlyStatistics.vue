@@ -44,7 +44,7 @@
 
         <br/>
         <div class="searchBtn">
-            <button v-on:click="searchObjectHourly(firstDate,firstTime,lastDate,lastTime)">
+            <button v-on:click="searchObjectHourly(firstDate,firstTime,lastDate,lastTime,selectCycle)">
                 조회
             </button>
             <button>
@@ -69,11 +69,10 @@
                 </thead>
                 <tbody>
                 <tr class="tBody" >
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
                 </tr>
             </tbody>
             </table>
@@ -134,22 +133,56 @@ export default {
                     returnFlag = true;
                 }
             }
-            console.log(returnFlag);
+            // console.log(returnFlag);
             return returnFlag;
         },
-
-
-
-        searchObjectHourly(firstDate,firstTime,lastDate,lastTime){
+        searchObjectHourly(firstDate,firstTime,lastDate,lastTime,selectCycle){
             this.searchData.splice(0)
             let fDateTime = firstDate+" "+firstTime
             let lDateTime = lastDate+" "+lastTime
+            let monthArr=[]
+            var date=fDateTime.split(" ")[0];
+            console.log("date "+date)
+
+            console.log(fDateTime, lDateTime)
+            console.log(this.isbetweenDate(fDateTime,lDateTime,"2021-04-21"))
+
+
+
+            // if(selectCycle=="monthly"){
+            //     fDateTime = fDateTime.substr(0,7)
+            //     lDateTime = lDateTime.substr(0,7)
+            // }else if(selectCycle=="daily"){
+            //     fDateTime = fDateTime.substr(0,10)
+            //     lDateTime = lDateTime.substr(0,10)
+            // }else if(selectCycle=="hourly"){
+            //     fDateTime = fDateTime.substr(0,13)
+            //     lDateTime = lDateTime.substr(0,13)
+            // }
+            // let fDateTime = firstDate+" "+firstTime
+            // let lDateTime = lastDate+" "+lastTime
 
             if(!firstDate&&!firstTime&&!lastDate&&!lastTime){
                 alert("기간을 입력하세요")
             }else{
-
+                
             }
+        },
+
+
+
+
+
+
+
+        isbetweenDate(fDateTime,lDateTime,searchDate){
+            let returnFlag=false
+            const moment = require('moment');
+            if(moment(searchDate).isBetween(fDateTime, lDateTime, undefined, '()')){
+                returnFlag = true
+            }
+            // console.log(returnFlag)
+            return returnFlag
         }
     },
     mounted() {
