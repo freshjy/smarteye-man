@@ -54,7 +54,7 @@
 
             <span slot="footer" v-on:click="reportSetModal = false">
                 <button class="addBtn" v-on:click="addReport(userName,selectPeriod)" >추가</button>
-                <button v-on:click="reportSetModal = false">취소</button>
+                <button v-on:click="reportcancle">취소</button>
             </span>
         </Modal>
 
@@ -96,7 +96,7 @@
 
             <span slot="footer" v-on:click="reportModifyModal = false">
                 <button class="addBtn" v-on:click="modifyReport(selected,userName,selectPeriod)" >수정</button>
-                <button v-on:click="reportModifyModal = false">취소</button>
+                <button v-on:click="reportcancle">취소</button>
             </span>
         </Modal>
 
@@ -119,9 +119,9 @@
                 </tr>
                 <tr v-for="(val,i) in getReportSet" :key="i"  >
                     <td><input type="checkbox" :value="val.id" v-model="selected"></td>
-                    <td>{{val.eventType}}보고</td>
+                    <td>{{val.eventType[0]}}보고</td>
                     <td>{{val.cycle}}</td>
-                    <td >{{val.eventType}}</td>
+                    <td >{{val.eventType[0]}}</td>
                     <td><button>다운로드</button></td>
                 </tr>
             </thead>
@@ -152,7 +152,6 @@ export default {
             selectGroup:'',
 
             userName:'',
-
             selectPeriod:'daily',
             selectEvent:'움직임',
             eventArr:[],
@@ -212,8 +211,9 @@ export default {
             console.log(returnFlag);
             return returnFlag;
         },
-        removeEvent(){
+        removeEvent(index){
             this.eventArr.splice(index-1,1);
+            console.log("Adfa")
         },
         addReportBtn(){
             this.reportSetModal = !this.reportSetModal;
@@ -229,9 +229,9 @@ export default {
                 this.cycle = '',
                 this.eventType=[]
             })
+            this.reportSetModal = !this.reportSetModal;
         },
         modifyReportBtn(length, id, getReportSet){
-            // this.reportModifyModal = !this.reportModifyModal;
              if(length==0){
                 alert("수정하실 사용자를 체크해 주세요")
             }else if(length==1){
@@ -256,13 +256,23 @@ export default {
                 }).then((res) => {
                     this.getReportSet()
                     this.userName = '',
-                    this.cycle = '',
-                    this.eventArr=[];
+                    this.selectPeriod = '',
+                    this.eventArr= []
                 })
             // }
             this.selected=[]
             this.reportModifyModal = !this.reportModifyModal;
         },
+        reportcancle(){
+            this.userName = '',
+            this.selectPeriod=[],
+            this.eventArr=[];
+            if(this.reportModifyModal == true){
+                this.reportModifyModal = false;
+            }else if(this.reportSetModal == true){
+                this.reportSetModal = false;
+            }
+        }
     },
     components:{
         Modal: Modal
