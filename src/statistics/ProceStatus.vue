@@ -33,7 +33,7 @@
 
     <div>
         관제사
-        <select name="selectingCCTV" v-model="controllerId" >
+        <select name="selectingController" v-model="controllerId" >
             <option v-for="(controllers, index) in getControllers" :key="index" v-bind:value="controllers.id">
                 {{controllers.firstName + controllers.lastName + controllers.id}}
             </option>
@@ -51,7 +51,7 @@
     
     <span v-for="(controller, index) in controllersNameArr"  :key="index" >
         {{controller}}
-        <span class="cctvRemove" type="button" v-on:click="removeController(index)">
+        <span class="controllerRemove" type="button" v-on:click="removeController(index)">
             <i class="closeBtn fas fa-times"></i>
         </span>
     </span>
@@ -118,7 +118,7 @@ export default {
             controllersIdArr:[],
             controllersNameArr:[],
             controllers:[],
-            searchProcessCCTVArr:[],
+            //searchProcessCCTVArr:[],
             searchProcessControllerArr:[],
             getCCTVs:[],
             getControllers:[],
@@ -139,7 +139,6 @@ export default {
             .then((res) => {
                 //console.log('getCotrollers:', res.data)
                 this.getControllers = res.data
-                
             })
         },
         isExistCCTV(cctvId){
@@ -189,7 +188,7 @@ export default {
         removeCCTV(index){
             this.cctvsIdArr.splice(index,1);
             this.cctvsNameArr.splice(index,1);
-            this.searchProcessCCTVArr.splice(index,1);
+            //this.searchProcessCCTVArr.splice(index,1);
         },
         removeController(index){
             this.controllersIdArr.splice(index,1);
