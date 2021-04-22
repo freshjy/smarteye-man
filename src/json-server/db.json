@@ -183,7 +183,7 @@
     {
       "id": 1,
       "cctvId": 2,
-      "cctvName": "CCTVName2",
+      "cctvName": "NAMECHANGE1",
       "firstName": "이",
       "lastName": "관제",
       "eventType": "배회",
@@ -192,8 +192,8 @@
     {
       "id": 2,
       "cctvId": 1,
-      "cctvName": "CCTVName1",
-      "firstName": "1김",
+      "cctvName": "NAMECHANGE0",
+      "firstName": "김",
       "lastName": "관제",
       "eventType": "침입",
       "processSitu": "오탐"
@@ -201,8 +201,8 @@
     {
       "id": 3,
       "cctvId": 1,
-      "cctvName": "CCTVName1",
-      "firstName": "2김",
+      "cctvName": "NAMECHANGE0",
+      "firstName": "김",
       "lastName": "관제",
       "eventType": "움직임",
       "processSitu": "이상없음"
@@ -210,7 +210,7 @@
     {
       "id": 4,
       "cctvId": 3,
-      "cctvName": "CCTVName3",
+      "cctvName": "NAMECHANGE2",
       "firstName": "박",
       "lastName": "관제",
       "eventType": "화재",
@@ -219,8 +219,17 @@
     {
       "id": 5,
       "cctvId": 1,
-      "cctvName": "CCTVName1",
-      "firstName": "3김",
+      "cctvName": "NAMECHANGE0",
+      "firstName": "김",
+      "lastName": "관제",
+      "eventType": "침입",
+      "processSitu": "화재"
+    },
+    {
+      "id": 6,
+      "cctvId": 7,
+      "cctvName": "NAMECHANGE6",
+      "firstName": "김",
       "lastName": "관제",
       "eventType": "침입",
       "processSitu": "화재"

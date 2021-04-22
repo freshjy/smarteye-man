@@ -12,6 +12,8 @@
                 <i class="fas fa-trash-alt" aria-hidden="true"></i>
             </span>
         </div>
+        <br/>
+        
         
 
         <!-- 리포트 설정 팝업 -->
@@ -45,7 +47,7 @@
             </div>
 
             <span slot="footer" v-on:click="reportSetModal = false">
-                <button v-on:click="addReport" >추가</button>
+                <button class="addBtn" v-on:click="addReport" >추가</button>
                 <button v-on:click="userInfoSetModal = false">취소</button>
             </span>
         </Modal>
@@ -159,13 +161,13 @@ table {
 .title {
     border-bottom: 1px solid ;
 }
-.pageTitle{
-    font-size:2em;
-}
 .addContainer{
     font-size:0.8em;
 }
 .modalBody{
     font-size:2em;
+}
+.closeModalBtn {
+    float:right;
 }
 </style>

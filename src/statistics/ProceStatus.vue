@@ -19,7 +19,7 @@
         CCTV
         <select name="selectingCCTV" v-model="cctvId">
             <option v-for="(cctvs, index) in getCCTVs" :key="index" v-bind:value="cctvs.id">
-                {{cctvs.cctv + cctvs.id}}
+                {{cctvs.name}}
             </option>
         </select>
         <button v-on:click="addCCTV(cctvId)">추가</button>
@@ -36,7 +36,7 @@
         관제사
         <select name="selectingCCTV" v-model="controllerId" >
             <option v-for="(controllers, index) in getControllers" :key="index" v-bind:value="controllers.id">
-                {{controllers.firstName + controllers.lastName + controllers.id}}
+                {{controllers.firstName + controllers.lastName}}
             </option>
         </select>
         <button v-on:click="addController(controllerId)">추가</button>
@@ -162,7 +162,7 @@ export default {
     },
     methods:{
         getCCTVsToJson(){
-            this.$http.get('http://localhost:3000/cctvs')
+            this.$http.get('http://localhost:3000/cctv_info')
             .then((res) => {
                 //console.log('getCCTVs:', res.data)
                 this.getCCTVs = res.data
@@ -201,7 +201,7 @@ export default {
                 this.cctvsIdArr.push(cctvId);
                 for(var i=0; i<this.getCCTVs.length; i++){
                     if(cctvId==this.getCCTVs[i].id){
-                        this.cctvsNameArr.push(this.getCCTVs[i].cctv+cctvId);
+                        this.cctvsNameArr.push(this.getCCTVs[i].name);
                     }
                 }
             }else{
@@ -213,7 +213,7 @@ export default {
                 this.controllersIdArr.push(controllerId);
                 for(var i=0; i<this.getControllers.length; i++){
                     if(controllerId==this.getControllers[i].id){
-                        this.controllersNameArr.push(this.getControllers[i].firstName+this.getControllers[i].lastName+controllerId);
+                        this.controllersNameArr.push(this.getControllers[i].firstName+this.getControllers[i].lastName);
                     }
                 }
             }else{
@@ -305,7 +305,7 @@ export default {
             const workBook = Xlsx.utils.book_new();
             const workSheet = Xlsx.utils.json_to_sheet(this.printProcess);
             Xlsx.utils.book_append_sheet(workBook, workSheet, '시트이름');
-            Xlsx.writeFile(workBook, '파일이름.xlsx')
+            Xlsx.writeFile(workBook, '처리현황통계.xlsx')
         },
         chartDataPush(){
             console.log(this.chartData);//////

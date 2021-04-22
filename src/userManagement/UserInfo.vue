@@ -377,4 +377,7 @@ tr{
 .tBody{
     overflow:scroll;
 }
+.closeModalBtn{
+    float:right;
+}
 </style>
