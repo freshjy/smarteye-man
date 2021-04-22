@@ -47,8 +47,8 @@
             <br/>
             <div>CCTV 그룹
                 <select name="selectingGroup" v-model="selectGroup" >
-                    <option v-for="(cctvGroups,index) in getCCTVGroups" :key="index">
-                        {{cctvGroups.group}}
+                    <option v-for="(cctvGroup,index) in getCCTVGroups" :key="index">
+                        {{cctvGroup.name}}
                     </option>
                 </select>
                 <button v-on:click="addCCTVGroup(selectGroup)">추가</button>
@@ -102,7 +102,7 @@
             <div>CCTV 그룹
                 <select name="selectingGroup" v-model="selectGroup" >
                     <option v-for="(cctvGroups,index) in getCCTVGroups" :key="index">
-                        {{cctvGroups.group}}
+                        {{cctvGroups.name}}
                     </option>
                 </select>
                 <button v-on:click="addCCTVGroup(selectGroup)">추가</button>
@@ -198,7 +198,7 @@ export default {
             })            
         },
         getCCTVs(){
-            this.$http.get('http://localhost:3000/cctvGroup')
+            this.$http.get('http://localhost:3000/cctvgroup_infos')
             .then((res) => {
                 console.log('getCCTVGroups:', res.data)
                 this.getCCTVGroups = res.data
@@ -328,9 +328,9 @@ export default {
         }
         ,
         addCCTVGroup(group){
+            console.log(group)
             if(!this.isExist(group)){
                 this.cctvGroups.push(group);
-                this.cctvGroups.sort();
             }else{
                 alert("이미 사용자가 속해있는 CCTV그룹입니다.");
             }
@@ -376,8 +376,5 @@ tr{
 }
 .tBody{
     overflow:scroll;
-}
-.closeModalBtn{
-    float:right;
 }
 </style>

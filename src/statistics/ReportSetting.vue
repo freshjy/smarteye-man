@@ -41,8 +41,14 @@
                             {{ event.eventName }}
                         </option>
                     </select>
-                    <button>추가</button>
+                    <button v-on:click="addEvent(selectEvent)">추가</button>
                 </div>
+                <span v-for="(event,index) in eventArr" :key="index+1">
+                    {{event}}
+                    <span class="eventRemove" type="button" v-on:click="removeEvent(index+1)">
+                        <i class="closeBtn fas fa-times"></i>
+                    </span>
+                </span>    
                 <br/>
             </div>
 
@@ -111,6 +117,7 @@ export default {
             reportSetModal:false,
             selectPeriod:'daily',
             selectEvent:'움직임',
+            eventArr:[],
             events:[
                 {eventName:"움직임"},
                 {eventName:"배회"},
@@ -129,15 +136,36 @@ export default {
         addReportBtn(){
             this.reportSetModal = !this.reportSetModal;
         },
-        addReport(){
-            console.log(this.selectPeriod);
-            console.log(this.selectEvent);
-        },
         modifyReportBtn(){
             alert("리포트 수정");
         },
         deleteReportBtn(){
             alert("리포트 삭제");
+        },
+        addEvent(event){
+            if(!this.isExistEvent(event)){
+                this.eventArr.push(event)
+            }else{
+                alert("이미 선택한 이벤트 입니다.")
+            }
+        },
+        isExistEvent(event){
+            let returnFlag = false;
+            for(let i in this.eventArr){
+                if(this.eventArr[i] == event){
+                    returnFlag = true;
+                }
+            }
+            console.log(returnFlag);
+            return returnFlag;
+        },
+        removeEvent(){
+            this.eventArr.splice(index-1,1);
+        },
+
+        addReport(){
+            console.log(this.selectPeriod);
+            console.log(this.selectEvent);
         }
     },
     components:{

@@ -86,19 +86,19 @@
     },
     {
       "id": 2,
-      "name": "22"
+      "name": "그룹2"
     },
     {
       "id": 3,
-      "name": "33"
+      "name": "그룹3"
     },
     {
       "id": 4,
-      "name": "1-200"
+      "name": "그룹4"
     },
     {
       "id": 5,
-      "name": "1~128"
+      "name": "그룹5"
     }
   ],
   "cctv_info": [
@@ -4709,6 +4709,57 @@
       "health_comment": "",
       "user_comment": "",
       "group_id": 0
+    }
+  ],
+  "report_setting": [
+    {
+      "userName": "화재보고",
+      "cycle": "일간",
+      "eventType": [
+        "화재"
+      ]
+    },
+    {
+      "userName": "화재보고",
+      "cycle": "주간",
+      "eventType": [
+        "화재"
+      ]
+    },
+    {
+      "userName": "화재보고",
+      "cycle": "일간",
+      "eventType": [
+        "움직임"
+      ]
+    },
+    {
+      "userName": "화재보고",
+      "cycle": "일간",
+      "eventType": [
+        "움직임"
+      ]
+    },
+    {
+      "userName": "화재보고",
+      "cycle": "일간",
+      "eventType": [
+        "움직임"
+      ]
+    },
+    {
+      "userName": "화재보고",
+      "cycle": "일간",
+      "eventType": [
+        "움직임"
+      ]
+    },
+    {
+      "userName": "화재보고",
+      "cycle": "일간",
+      "eventType": [
+        "움직임"
+      ]
     }
   ]
 }
