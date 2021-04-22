@@ -21,6 +21,7 @@
 
         <div slot="body">
             <div>사용자 정보</div>
+            <br/>
             <div>ID<input type="text" v-model="id" placeholder="사용자 ID 입력"/></div>
             <div>이름<input type="text" v-model="lastName" placeholder="사용자 이름 입력"/></div>
             <div>성<input type="text" v-model="firstName" placeholder="성 입력"/></div>
@@ -31,16 +32,19 @@
                     <option value="yearly">불명</option>
                 </select>
             </div>
-            <div>비밀번호
+            <br/>
+            <div>비밀번호<input type="password" v-model="inPassword" placeholder="비밀번호 입력">
             </div>
-            <div>비밀번호 확인
+            <div>비밀번호 확인<input type="password" v-model="confirmPassword" placeholder="입력 비밀번호 확인">
             </div>
+            <br/>
             <div>팀<input type="text" v-model="team" placeholder="팀 입력"/>
             </div>
             <div>직위<input type="text" v-model="position" placeholder="직위 입력"/>
             </div>
             <div>역할<input type="text" v-model="role" placeholder="역할 입력"/>
             </div>
+            <br/>
             <div>CCTV 그룹
                 <select name="selectingGroup" v-model="selectGroup" >
                     <option v-for="(cctvGroups,index) in getCCTVGroups" :key="index">
@@ -58,7 +62,7 @@
         </div>
 
         <span slot="footer" v-on:click="UserInfoSetModal = false">
-            <button v-on:click="addUserInfo(id,firstName,lastName,gender,team,position,role)">추가</button>
+            <button v-on:click="addUserInfo(id,firstName,lastName,gender,team,position,role,inPassword,confirmPassword)">추가</button>
             <button v-on:click="userInfoCancle">취소</button>
         </span>
     </Modal>
@@ -71,6 +75,7 @@
 
         <div slot="body">
             <div>사용자 정보</div>
+            <br/>
             <div>ID<input type="text" v-model="id" disabled ></div>
             <div>이름<input type="text" v-model="lastName" placeholder="사용자 이름 입력"/></div>
             <div>성<input type="text" v-model="firstName" placeholder="성 입력"/></div>
@@ -81,16 +86,19 @@
                     <option value="unknown">불명</option>
                 </select>
             </div>
-            <div>비밀번호
+            <br/>
+            <div>비밀번호<input type="password" v-model="inPassword" placeholder="비밀번호 입력">
             </div>
-            <div>비밀번호 확인
+            <div>비밀번호 확인<input type="password" v-model="confirmPassword" placeholder="입력 비밀번호 확인">
             </div>
+            <br/>
             <div>팀<input type="text" v-model="team" placeholder="팀 입력"/>
             </div>
             <div>직위<input type="text" v-model="position" placeholder="직위 입력"/>
             </div>
             <div>역할<input type="text" v-model="role" placeholder="역할 입력"/>
             </div>
+            <br/>
             <div>CCTV 그룹
                 <select name="selectingGroup" v-model="selectGroup" >
                     <option v-for="(cctvGroups,index) in getCCTVGroups" :key="index">
@@ -159,9 +167,12 @@ export default {
            id:'',
            name:'',
            gender:'',
+           inPassword:'',
+           confirmPassword:'',
            team:'',
            position:'',
            role:'',
+           users:[],
            todos:[],
            getCCTVGroups:[],
            selectGroup:'',
@@ -172,6 +183,13 @@ export default {
    },
 
     methods:{
+        getUserLogin(){
+            this.$http.get('http://localhost:3000/userLogin')
+            .then((res) => {
+                console.log('getUsers:', res.data)
+                this.users = res.data
+            })            
+        },
         getTodos(){
             this.$http.get('http://localhost:3000/todoData')
             .then((res) => {
@@ -197,31 +215,38 @@ export default {
         addUserInfoBtn(){
             this.userInfoSetModal = !this.userInfoSetModal;
         },
-        addUserInfo(id,firstName,lastName,gender,team,position,role){
-            if(id && firstName && lastName && team && position && role){
-                this.$http.post('http://localhost:3000/todoData',{
-                    id:id,
-                    firstName:firstName,
-                    lastName:lastName,
-                    name:firstName+lastName,
-                    gender:gender,
-                    team:team,
-                    position:position,
-                    role:role,
-                    cctvGroups:this.cctvGroups
-                }).then((res) => {
-                    this.todos.push(res.data);
-                    this.id = '',
-                    this.firstName = '',
-                    this.lastName = '',
-                    this.name = '',
-                    this.gender = '',
-                    this.team = '',
-                    this.position = '',
-                    this.role = '',
-                    this.cctvGroups=[];
-                })
-            }
+        addUserInfo(id,firstName,lastName,gender,team,position,role,inPassword,confirmPassword){
+            // if(id && firstName && lastName && team && position && role){
+                if(inPassword!=confirmPassword){
+                    alert("입력한 비밀번호와 확인 비밀번호가 다릅니다.")
+                }else{
+                    this.$http.post('http://localhost:3000/todoData',{
+                        id:id,
+                        firstName:firstName,
+                        lastName:lastName,
+                        name:firstName+lastName,
+                        gender:gender,
+                        password:inPassword,
+                        team:team,
+                        position:position,
+                        role:role,
+                        cctvGroups:this.cctvGroups
+                    }).then((res) => {
+                        this.todos.push(res.data);
+                        this.id = '',
+                        this.firstName = '',
+                        this.lastName = '',
+                        this.name = '',
+                        this.gender = '',
+                        this.inPassword = '',
+                        this.confirmPassword ='',
+                        this.team = '',
+                        this.position = '',
+                        this.role = '',
+                        this.cctvGroups=[];
+                    })
+                }
+            // }
             this.userInfoSetModal = !this.userInfoSetModal;
         },
         modifyUserInfoBtn(length, id, todos){
@@ -246,14 +271,15 @@ export default {
                 alert("수정하실 사용자를 1명만 체크해 주세요")
             }
         },
-        modifyUserInfo(id,firstName,lastName,gender,team,position,role){
-            if(id && firstName && lastName && team && position && role){
+        modifyUserInfo(id,firstName,lastName,gender,team,position,role,inPassword){
+            // if(id && firstName && lastName && team && position && role){
                 this.$http.patch('http://localhost:3000/todoData/'+id,{
                     id:id,
                     firstName:firstName,
                     lastName:lastName,
                     name:firstName+lastName,
                     gender:gender,
+                    password:inPassword,
                     team:team,
                     position:position,
                     role:role,
@@ -270,7 +296,7 @@ export default {
                     this.role = '',
                     this.cctvGroups=[];
                 })
-            }
+            // }
             this.selected=[]
             this.userInfoModifyModal = !this.userInfoModifyModal;
         },
@@ -327,6 +353,7 @@ export default {
         Modal: Modal
     },
     mounted(){
+        this.getUserLogin();
         this.getTodos();
         this.getCCTVs();
     },

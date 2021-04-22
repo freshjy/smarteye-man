@@ -20,7 +20,7 @@
                 <i class="closeModalBtn fas fa-times" v-on:click="reportSetModal = false" aria-hidden="true"></i>
             </div>
             <div slot="body">
-                <div>리포트 정보</div>
+                <div>리포트 정보</div><br/>
                 <div>이름<input type="text" placeholder="사용자 ID"/></div>
                 <div>주기
                     <select name="selectingPeriod" v-model="selectPeriod">
@@ -32,17 +32,16 @@
                 <br>
             </div>
             <div  slot="body">
-                <div>이벤트 타입</div>
+                <div>이벤트 타입</div><br/>
                 <div>이벤트 추가
                     <select name="selectingEvent" v-model="selectEvent">
-                        <option v-for="event in events" :key="event" >
+                        <option v-for="(event, index) in events" :key="index" >
                             {{ event.eventName }}
                         </option>
                     </select>
+                    <button>추가</button>
                 </div>
-                <div>
-                <button>추가</button>
-                </div>
+                <br/>
             </div>
 
             <span slot="footer" v-on:click="reportSetModal = false">
