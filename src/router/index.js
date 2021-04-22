@@ -13,6 +13,13 @@ import EventLog from '../log/EventLog'
 import SystemLog from '../log/SystemLog'
 
 
+import RecoinfoForm from '@/components/RecodingInfo/RecoinfoForm'
+import CCTVInfoForm from "@/components/CCTV/CCTVInfoForm"
+import CCTVGroupForm from "@/components/CCTV/CCTVGroupForm"
+import ControlGroupForm from "@/components/CCTV/ControlGroupForm"
+import RTSPInfoForm from '@/components/CCTV/RTSPInfoForm.vue'
+import FixReportForm from '@/components/CCTV/FixReportForm.vue'
+import CameraHealthForm from '@/components/CCTV/CameraHealthForm.vue'
 
 Vue.use(Router)
 
@@ -59,6 +66,42 @@ export default new Router({
       path: '/systemlog',
       name: SystemLog,
       component: SystemLog
-    },      
+    },  
+    
+    // 정수 추가
+    { // 1-1.녹화장치 정보
+      path: '/RecoinfoForm',
+      name: 'RecoinfoForm',
+      component: RecoinfoForm
+    },
+    { // 2-1 카메라 목록
+      path: '/CCTVInfoForm',
+      name: 'CCTVInfoForm',
+      component: CCTVInfoForm
+    },
+    {
+      path: '/CCTVGroupForm',
+      name: 'CCTVGroupForm',
+      component: CCTVGroupForm
+    },
+    {
+      path: '/ControlGroupForm',
+      name: 'ControlGroupForm',
+      component: ControlGroupForm
+    },
+    {
+      path: '/RTSPInfoForm',
+      name: 'RTSPInfoForm',
+      component: RTSPInfoForm
+    },
+    {
+      path: '/FixReportForm',
+      name: 'FixReportForm',
+      component: FixReportForm
+    },    {
+      path: '/CameraHealthForm',
+      name: 'CameraHealthForm',
+      component: CameraHealthForm
+    }
   ]
 })

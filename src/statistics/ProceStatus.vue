@@ -11,9 +11,10 @@
         <input type="date" v-model="firstDate"/><input type="time" v-model="firstTime"/> ~ 
         <input type="date" v-model="lastDate"/><input type="time" v-model="lastTime"/>
         
-        {{firstDate + " " + firstTime}}
-        {{lastDate + " " + lastTime}}
+        <!-- {{firstDate + " " + firstTime}}
+        {{lastDate + " " + lastTime}} -->
     </div>
+    <br/>
     <div>
         CCTV
         <select name="selectingCCTV" v-model="cctvId">
@@ -30,10 +31,10 @@
             <i class="closeBtn fas fa-times"></i>
         </span>
     </span>
-
+    <br/>
     <div>
         관제사
-        <select name="selectingController" v-model="controllerId" >
+        <select name="selectingCCTV" v-model="controllerId" >
             <option v-for="(controllers, index) in getControllers" :key="index" v-bind:value="controllers.id">
                 {{controllers.firstName + controllers.lastName + controllers.id}}
             </option>
@@ -43,7 +44,7 @@
             <button v-on:click="searchProcess()">
                 조회
             </button>
-            <button>
+            <button v-on:click="makeExcelFile()">
                 내보내기
             </button>
         </div>
@@ -51,11 +52,11 @@
     
     <span v-for="(controller, index) in controllersNameArr"  :key="index" >
         {{controller}}
-        <span class="controllerRemove" type="button" v-on:click="removeController(index)">
+        <span class="cctvRemove" type="button" v-on:click="removeController(index)">
             <i class="closeBtn fas fa-times"></i>
         </span>
     </span>
-
+    <br/>
     
     
     <div>
@@ -85,7 +86,7 @@
             </thead>
             <tbody>
                 <tr class="tBody2">
-                    <!-- <td><pie-chart :data="chartData" :options="chartOptions"></pie-chart></td> -->
+                   <td v-if='showChart'><pie-chart  :data="chartData" :options="chartOptions"></pie-chart></td> 
                 </tr>
             </tbody>
         </table>
@@ -96,7 +97,7 @@
 
 
 <script>
-// import data from '../data/data'
+import Xlsx from 'xlsx'
 import PieChart from './PieChart'
     
 export default {
@@ -118,13 +119,46 @@ export default {
             controllersIdArr:[],
             controllersNameArr:[],
             controllers:[],
-            //searchProcessCCTVArr:[],
+            searchProcessCCTVArr:[],
             searchProcessControllerArr:[],
             getCCTVs:[],
             getControllers:[],
             printProcess:[],
-            saveCid: []
-        }
+            saveCid: [],
+
+
+            showChart:false,
+                        //vue-chart.js
+            chartData:{
+               show: true,
+               hoverBackgroundColor: "red",
+               hoverBorderWidth: 10,
+               labels: ["이상없음", "미처리","오탐","화재"],
+               datasets: [
+                   {
+                       label: "처리현황",
+                       backgroundColor: ["#6DA0F1", "#467FD3","#467FD3","#B2C7D9"],
+                       data: [],
+                   }
+               ]
+           },
+            chartOptions: {
+                title:{
+                    display:true,
+                    text: '처리현황',
+                    position: "bottom"
+                },
+                    responsive: true,
+                    legend: {
+                        position: 'right',
+                        },
+                    maintainAspectRatio: true,
+                pieceLabel: {
+                        mode: 'percentage',
+                        precision: '0'
+                    }
+            },
+            }
     },
     methods:{
         getCCTVsToJson(){
@@ -139,6 +173,7 @@ export default {
             .then((res) => {
                 //console.log('getCotrollers:', res.data)
                 this.getControllers = res.data
+                
             })
         },
         isExistCCTV(cctvId){
@@ -188,7 +223,7 @@ export default {
         removeCCTV(index){
             this.cctvsIdArr.splice(index,1);
             this.cctvsNameArr.splice(index,1);
-            //this.searchProcessCCTVArr.splice(index,1);
+            this.searchProcessCCTVArr.splice(index,1);
         },
         removeController(index){
             this.controllersIdArr.splice(index,1);
@@ -197,6 +232,7 @@ export default {
         searchProcess(){
             this.saveCid.splice(0)
             this.printProcess.splice(0)
+            
             console.log(typeof this.firstDate)
             console.log(typeof this.firstTime)  
             if( (this.cctvsIdArr.length) != 0 ){
@@ -243,7 +279,9 @@ export default {
                             })
                     }
                 }
-            }           
+            }
+            this.chartDataPush()
+                       
         },
         getCCTTName(controllerId){
             for(var i=0; i<this.getCCTVs.length; i++){
@@ -261,12 +299,57 @@ export default {
             }
             return returnFlag
         },
+                // 엑셀 내보내기
+        makeExcelFile(){
+            console.log("엑셀내보내기");
+            const workBook = Xlsx.utils.book_new();
+            const workSheet = Xlsx.utils.json_to_sheet(this.printProcess);
+            Xlsx.utils.book_append_sheet(workBook, workSheet, '시트이름');
+            Xlsx.writeFile(workBook, '파일이름.xlsx')
+        },
+        chartDataPush(){
+            console.log(this.chartData);//////
+            this.showChart = true;
+            console.log(this.printProcess);
+            let num1 = 0;
+            let num2 = 0;
+            let num3 = 0;
+            let num4 = 0;
+            for(let i=0; i<this.printProcess.length; i++){
+                console.log(this.printProcess[i].processSitu);
+                if(this.printProcess[i].processSitu === "이상없음"){
+                    num1++;
+                }else if(this.printProcess[i].processSitu === "미처리"){
+                    num2++;
+                }else if(this.printProcess[i].processSitu === "화재"){
+                    num3++;
+                }else {
+                    num4++;
+                }
+            }    
+            // var num2 = this.chartArr[0]
+             //배열 초기화
+            this.chartData.datasets[0].data = [];
+            this.chartData.datasets[0].data.push(num1)
+            this.chartData.datasets[0].data.push(num2)
+            this.chartData.datasets[0].data.push(num3)
+            this.chartData.datasets[0].data.push(num4)
+        }
     },
     mounted(){
         this.getCCTVsToJson();
         this.getControllerToJson();
+        
     },
+    updated(){
+        
+    },
+    computed:{
 
+    },
+    watch:{
+
+    }
 }
 
 </script>

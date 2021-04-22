@@ -20,7 +20,7 @@
             <button v-on:click="searchLog(firstDate,firstTime,lastDate,lastTime,loginCheck,logoutCheck,resetSet)">
                 조회
             </button>
-            <button>
+            <button v-on:click="makeExcelFile()">
                 내보내기
             </button>
         </div>
@@ -61,6 +61,8 @@
     </div>
 </template>
 <script>
+import Xlsx from 'xlsx'
+
 export default {
     components:{
 
@@ -129,7 +131,15 @@ export default {
                     }
                 }
             }
-        }
+        },
+        // 엑셀 내보내기
+        makeExcelFile(){
+            console.log("엑셀내보내기");
+            const workBook = Xlsx.utils.book_new();
+            const workSheet = Xlsx.utils.json_to_sheet(this.searchData);
+            Xlsx.utils.book_append_sheet(workBook, workSheet, '시트이름');
+            Xlsx.writeFile(workBook, '시스템 로그.xlsx')
+        },
     },
     mounted(){
         this.getAuthToJson()

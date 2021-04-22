@@ -56,7 +56,7 @@
             <button v-on:click="searchEvent(firstDate,firstTime,lastDate,lastTime,selProceStat)">
                 조회
             </button>
-            <button>
+            <button v-on:click="makeExcelFile()">
                 내보내기
             </button>
         </div>
@@ -105,6 +105,8 @@
 </template>
 
 <script>
+import Xlsx from 'xlsx'
+
 export default {
     components:{
 
@@ -256,9 +258,6 @@ export default {
                 }
             }
         },
-
-        
-
         isbetweenDate(fDateTime,lDateTime,searchDate){
             let returnFlag=false
             const moment = require('moment');
@@ -267,7 +266,15 @@ export default {
             }
             console.log(returnFlag)
             return returnFlag
-        }
+        },
+        // 엑셀 내보내기
+        makeExcelFile(){
+            console.log("엑셀내보내기");
+            const workBook = Xlsx.utils.book_new();
+            const workSheet = Xlsx.utils.json_to_sheet(this.searchData);
+            Xlsx.utils.book_append_sheet(workBook, workSheet, '시트이름');
+            Xlsx.writeFile(workBook, '이벤트 로그.xlsx')
+        },
     },
     mounted() {
         this.getCCTVsToJson()

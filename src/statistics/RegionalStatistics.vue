@@ -44,19 +44,19 @@
             <button v-on:click="searchObjectArea(firstDate,firstTime,lastDate,lastTime)">
                 조회
             </button>
-            <button>
+            <button v-on:click="makeExcelFile()">
                 내보내기
             </button>
         </div>
     </div>
+    <br/>
     <span v-for="(area,index) in areaArr" :key="index">
         {{area}}
         <span class="areaRemove" type="button" v-on:click="removeArea(index)">
             <i class="closeBtn fas fa-times"></i>
         </span>
     </span>
-    <br/>
-
+    
     <div>
         <table class="firstTable">
             <thead>
@@ -79,13 +79,12 @@
         <table class="secondTable">
             <thead>
                 <tr class="tTitle2">
-                    <th>차트</th>
+                    <th>통계</th>
                 </tr>
             </thead>
             <tbody>
                 <tr class="tBody2">
-                    <!-- <td><pie-chart :data="chartData" :options="chartOptions"></pie-chart></td> -->
-                    
+                    <td v-if='showChart'><pie-chart  :data="chartData" :options="chartOptions"></pie-chart></td>                 
                 </tr>
             </tbody>
         </table>
@@ -93,9 +92,12 @@
 </div>
 </template>
 <script>
+import Xlsx from 'xlsx'
+import PieChart from './PieChart'
+
 export default {
     components:{
-
+        PieChart
     },
     data(){
         return{
@@ -116,7 +118,40 @@ export default {
             searchData:[],
 
             //차트에 보여줄 데이터 0번이 차 1번이 사람
-            chartArr:[]
+            chartArr:[],
+
+            //vue-chart.js
+            showChart:false,
+                        //vue-chart.js
+            chartData:{
+               show: false,
+               hoverBackgroundColor: "red",
+               hoverBorderWidth: 10,
+               labels: ["차", "사람"],
+               datasets: [
+                   {
+                       label: "처리현황",
+                       backgroundColor: ["#6DA0F1", "#467FD3"],
+                       data: [],
+                   }
+               ]
+           },
+           chartOptions: {
+               title:{
+                   display:true,
+                   text: '객체종류',
+                   position: "bottom"
+               },
+                responsive: true,
+                legend: {
+                    position: 'right',
+                    },
+                maintainAspectRatio: true,
+               pieceLabel: {
+                    mode: 'percentage',
+                    precision: '0'
+                }
+           },
         }
     },
     methods:{
@@ -168,6 +203,7 @@ export default {
         },
         searchObjectArea(firstDate,firstTime,lastDate,lastTime){
             this.searchData.splice(0)
+            this.chartArr = [];  // 차트에 들어가는 수 초기화 // 추가해줌!!
             let fDateTime = firstDate+" "+firstTime
             let lDateTime = lastDate+" "+lastTime
 
@@ -212,8 +248,11 @@ export default {
                             this.searchData[i].personPercent = (this.searchData[i].person/this.searchData[i].sum*100).toFixed(2)
                         }
                     }
-                } 
+                }
+
             }
+
+            // this.chartArr = [];  // 차트에 들어가는 수 초기화 // 추가해줌!!
             // 차트를 위한 데이터 입력
             for( let i=0; i<this.searchData.length; i++){
                 this.chartArr.push({
@@ -221,7 +260,7 @@ export default {
                     person: this.searchData[i].person
                 })
             }
-            console.log(this.chartArr) 
+            this.chartDataPush()
         },
         isbetweenDate(fDateTime,lDateTime,searchDate){
             let returnFlag=false
@@ -229,14 +268,53 @@ export default {
             if(moment(searchDate).isBetween(fDateTime, lDateTime, undefined, '()')){
                 returnFlag = true
             }
-            console.log(returnFlag)
+            // console.log(returnFlag)
             return returnFlag
+        },
+
+        // 엑셀
+        makeExcelFile(){
+            console.log("엑셀내보내기");
+            const workBook = Xlsx.utils.book_new();
+            const workSheet = Xlsx.utils.json_to_sheet(this.searchData);
+            Xlsx.utils.book_append_sheet(workBook, workSheet, '시트이름');
+            Xlsx.writeFile(workBook, '파일이름.xlsx')
+        },
+
+        chartDataPush(){
+               //배열 초기화
+            this.showChart = true;
+            var num1 = 0;
+            var num2 = 0;
+            num1 = this.chartArr[0].car
+            num2 = this.chartArr[0].person
+            console.log("car"+num1)
+            console.log("넘넘넘넘");
+            console.log("person"+num2);
+            this.chartData.datasets[0].data = [];
+            console.log(this.chartData.datasets[0]);
+            this.chartData.datasets[0].data.push(num1)
+            this.chartData.datasets[0].data.push(num2)
         }
 
     },
+    beforeMount(){
+        
+    },
     mounted() {
         this.getObjectAreaToJson()
+    
+    },
+    beforeUpdate(){ //데이터 변경되면 가상돔을 화면을 다시 그리기 전에 호출
+        
+    },
+    updated(){ // 화면이 그려고 나면 호출
+
+    },
+    beforeDestroy(){
+        
     }
+
 }
 </script>
 <style lang="">
