@@ -371,7 +371,7 @@
     },
     {
       "created_at": "2020-12-29 03:59",
-      "user_name": "eventadmin",
+      "user_name": "admin",
       "remote_ip": "192.168.2.143",
       "action": "Logout",
       "state": "Success"
@@ -399,14 +399,14 @@
     },
     {
       "created_at": "2020-12-29 03:59",
-      "user_name": "eventadmin",
+      "user_name": "admin",
       "remote_ip": "192.168.2.143",
       "action": "Login",
       "state": "Success"
     },
     {
       "created_at": "2020-12-29 03:59",
-      "user_name": "eventadmin",
+      "user_name": "admin",
       "remote_ip": "192.168.2.143",
       "action": "Login",
       "state": "Success"
@@ -4713,53 +4713,74 @@
   ],
   "report_setting": [
     {
-      "userName": "화재보고",
+      "id": 1,
+      "userName": "eventadmin",
+      "eventName": "화재보고",
       "cycle": "일간",
       "eventType": [
         "화재"
       ]
     },
     {
-      "userName": "화재보고",
+      "id": 2,
+      "userName": "eventadmin",
+      "eventName": "화재보고",
+      "cycle": "월간",
+      "eventType": [
+        "싸움"
+      ]
+    },
+    {
+      "id": 3,
+      "userName": "eventadmin",
+      "eventName": "침입보고",
       "cycle": "주간",
       "eventType": [
-        "화재"
+        "침입"
       ]
     },
     {
-      "userName": "화재보고",
+      "id": 4,
+      "userName": "eventadmin",
+      "eventName": "움직임",
+      "cycle": "월간",
+      "eventType": [
+        "움직임"
+      ]
+    },
+    {
+      "id": 5,
+      "userName": "eventadmin",
+      "eventName": "침입보고",
+      "cycle": "일간",
+      "eventType": [
+        "침입"
+      ]
+    },
+    {
+      "id": 6,
+      "userName": "eventadmin",
+      "eventName": "움직임보고",
       "cycle": "일간",
       "eventType": [
         "움직임"
       ]
     },
     {
-      "userName": "화재보고",
-      "cycle": "일간",
+      "userName": "admin",
+      "cycle": "월간",
       "eventType": [
-        "움직임"
-      ]
+        "배회"
+      ],
+      "id": 8
     },
     {
-      "userName": "화재보고",
+      "userName": "123",
       "cycle": "일간",
       "eventType": [
-        "움직임"
-      ]
-    },
-    {
-      "userName": "화재보고",
-      "cycle": "일간",
-      "eventType": [
-        "움직임"
-      ]
-    },
-    {
-      "userName": "화재보고",
-      "cycle": "일간",
-      "eventType": [
-        "움직임"
-      ]
+        "배회"
+      ],
+      "id": 9
     }
   ]
 }
