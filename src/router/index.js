@@ -11,7 +11,8 @@ import ReportSetting from '../statistics/ReportSetting'
 // 로그
 import EventLog from '../log/EventLog'
 import SystemLog from '../log/SystemLog'
-
+// 시스템 관리
+import SystemInfo from '../systemMannager/SystemInfo'
 
 import RecoinfoForm from '@/components/RecodingInfo/RecoinfoForm'
 import CCTVInfoForm from "@/components/CCTV/CCTVInfoForm"
@@ -73,6 +74,12 @@ export default new Router({
       name: SystemLog,
       component: SystemLog
     },  
+    // 시스템 관리
+    {
+      path: '/systeminfo',
+      name: SystemInfo,
+      component: SystemInfo
+    },
     
     // 정수 추가
     { // 1-1.녹화장치 정보
