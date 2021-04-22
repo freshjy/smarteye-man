@@ -137,7 +137,7 @@ export default {
     },
     methods:{
         getCCTVsToJson(){
-            this.$http.get('http://localhost:3000/cctv_infos')
+            this.$http.get('http://localhost:3000/cctv_info')
             .then((res) => {
                 console.log('getCCTVs:', res.data)
                 this.getCCTVs = res.data

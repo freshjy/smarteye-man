@@ -6,7 +6,7 @@ import UserInfo from '../userManagement/UserInfo'
 import ProceStatus from '../statistics/ProceStatus'
 import HourlyStatistics from '../statistics/HourlyStatistics'
 import RegionalStatistics from '../statistics/RegionalStatistics'
-
+import FailureReportStatistics from '../statistics/FailureReportStatistics'
 import ReportSetting from '../statistics/ReportSetting'
 // 로그
 import EventLog from '../log/EventLog'
@@ -53,10 +53,16 @@ export default new Router({
       component: RegionalStatistics
     },
     {
+      path: '/failurereportstatistics',
+      name: FailureReportStatistics,
+      component: FailureReportStatistics
+    },
+    {
       path: '/reportsetting',
       name: ReportSetting,
       component: ReportSetting
     },
+    // 로그
     {
       path:'/eventlog',
       name: EventLog,

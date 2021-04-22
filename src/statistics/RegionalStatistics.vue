@@ -278,7 +278,7 @@ export default {
             const workBook = Xlsx.utils.book_new();
             const workSheet = Xlsx.utils.json_to_sheet(this.searchData);
             Xlsx.utils.book_append_sheet(workBook, workSheet, '시트이름');
-            Xlsx.writeFile(workBook, '파일이름.xlsx')
+            Xlsx.writeFile(workBook, '객체종류지역별통계.xlsx')
         },
 
         chartDataPush(){
